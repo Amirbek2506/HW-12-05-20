@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 namespace HW_12_05_20
@@ -11,14 +12,14 @@ namespace HW_12_05_20
             Console.WriteLine(Text.Replace('a','1').Replace('e','2').Replace('i','3').Replace('o','4').Replace('u','5'));
             string text = Console.ReadLine();
             Console.WriteLine(text.Replace('1', 'a').Replace('2', 'e').Replace('3', 'i').Replace('4', 'o').Replace('5', 'u'));
-            */
+
             string[] Sumbol = new string[] { "+", "-", "*", "/" };
             var TextQuery = new string((from ch in Console.ReadLine()
                                         where Char.IsDigit(ch) || ch=='+' || ch == '-' || ch == '*' || ch == '/'
                                         select ch).ToArray());
             string sumbol =Sumbol.FirstOrDefault(S => TextQuery.Contains(S)); 
             int Arg1 = int.Parse(new string(TextQuery.TakeWhile(ch => ch.ToString()!=sumbol).ToArray()));
-            int Arg2= int.Parse(new string((TextQuery.Reverse().TakeWhile(s => s.ToString()!=sumbol)).Reverse().ToArray()));
+            int Arg2= int.Parse(new string(TextQuery.Reverse().TakeWhile(s => s.ToString()!=sumbol).Reverse().ToArray()));
             int result=0;
             switch (sumbol)
             {
@@ -43,9 +44,17 @@ namespace HW_12_05_20
                     }
                     break;
             }
+            Console.WriteLine(result.ToString());*/
 
-            Console.WriteLine(result);
-
+            string inputString = "camelText";
+            Console.WriteLine(inputString.Aggregate(string.Empty, (result, str) =>
+            {
+                if (char.IsUpper(str) && result.Length > 0)
+                {
+                    result += ' ';
+                }
+                return result + str;
+            }));
         }
     }
 }
